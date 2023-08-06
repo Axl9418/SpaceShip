@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private float _shootDelay = 0.05f;
     //exact time when player can shoot again
     private float _canShoot = -1f;
+    //lives of the player
+    private int _lives = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Laser shooting
     void ShootLaser()
     {
         //update the delay time for laser shoot
@@ -54,6 +57,18 @@ public class Player : MonoBehaviour
 
         //instantiate the laser to create a copy of the laser prefab in the position and rotation choosen
         Instantiate(_laser, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+    }
+
+    //player damage
+    public void GetDamage()
+    {
+        //substract lives of the player
+        _lives--;
+
+        if (_lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     
