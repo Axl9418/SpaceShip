@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    /*public GameObject enemyPrefab;
 
     private void Start()
     {
@@ -26,5 +26,25 @@ public class EnemyManager : MonoBehaviour
     {
         //Create a new enemy
         Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
+    }*/
+    [SerializeField]
+    private GameObject _enemy;
+    [SerializeField]
+    private GameObject _enemyContainer;
+
+    private void Start()
+    {
+        StartCoroutine(SpawnEnemies());
+    }
+
+    IEnumerator SpawnEnemies()
+    {
+        while (true)
+        {
+            Vector3 xPosition = new Vector3(Random.Range(-10f, 10f), 6, 0);
+            GameObject newEnemy = Instantiate(_enemy, xPosition, Quaternion.identity);
+            newEnemy.transform.parent = _enemyContainer.transform;
+            yield return new WaitForSeconds(5f);
+        }
     }
 }
